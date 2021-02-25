@@ -67,11 +67,9 @@ class _AddExpenseState extends State<AddExpense> {
                       items: <String>[
                         'Fare',
                         'Food',
-                        'Flutter',
-                        'Node',
-                        'Java',
-                        'Python',
-                        'PHP',
+                        'Credo',
+                        'Clothing',
+                        'EGW Books',
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -80,7 +78,7 @@ class _AddExpenseState extends State<AddExpense> {
                                 const EdgeInsets.symmetric(horizontal: 5.0),
                             child: Text(
                               value,
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: Colors.blue),
                             ),
                           ),
                         );
@@ -116,7 +114,7 @@ class _AddExpenseState extends State<AddExpense> {
                   child: Stack(
                     children: <Widget>[
                       TextFormField(
-                        cursorColor: Colors.red,
+                        cursorColor: Colors.blue,
                         decoration: InputDecoration(
                           labelText: "Expense Name",
                           contentPadding: EdgeInsets.symmetric(
@@ -138,8 +136,8 @@ class _AddExpenseState extends State<AddExpense> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                const Color(0xffff0000),
-                                const Color(0xff6b0000),
+                                Colors.blueAccent,
+                                Colors.blue
                               ],
                             ),
                           ),
@@ -161,7 +159,7 @@ class _AddExpenseState extends State<AddExpense> {
                   child: Stack(
                     children: <Widget>[
                       TextFormField(
-                        cursorColor: Colors.red,
+                        cursorColor: Colors.blue,
                         decoration: InputDecoration(
                           labelText: "Expense Amount",
                           contentPadding: EdgeInsets.symmetric(
@@ -183,8 +181,8 @@ class _AddExpenseState extends State<AddExpense> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                const Color(0xffff0000),
-                                const Color(0xff6b0000),
+                                Colors.blueAccent,
+                                Colors.blue
                               ],
                             ),
                           ),
@@ -209,7 +207,7 @@ class _AddExpenseState extends State<AddExpense> {
                       children: <Widget>[
                         IgnorePointer(
                           child: TextFormField(
-                            cursorColor: Colors.red,
+                            cursorColor: Colors.blue,
                             controller: _datecontroller,
                             decoration: InputDecoration(
                               labelText: "Expense Date",
@@ -228,8 +226,8 @@ class _AddExpenseState extends State<AddExpense> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  const Color(0xffff0000),
-                                  const Color(0xff6b0000),
+                                  Colors.blueAccent,
+                                  Colors.blue
                                 ],
                               ),
                             ),
@@ -250,7 +248,7 @@ class _AddExpenseState extends State<AddExpense> {
                     children: <Widget>[
                       TextFormField(
                         maxLines: 5,
-                        cursorColor: Colors.red,
+                        cursorColor: Colors.blue,
                         decoration: InputDecoration(
                           labelText: "Any Additional details",
                           contentPadding: EdgeInsets.symmetric(
@@ -267,8 +265,8 @@ class _AddExpenseState extends State<AddExpense> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                const Color(0xffff0000),
-                                const Color(0xff6b0000),
+                                Colors.blueAccent,
+                                Colors.blue
                               ],
                             ),
                           ),
@@ -290,7 +288,9 @@ class _AddExpenseState extends State<AddExpense> {
                       textColor: Colors.white,
                       // padding: EdgeInsets.symmetric(
                       //     vertical: 12.0, horizontal: 40.0),
-                      onPressed: () {},
+                      onPressed: () {
+                        _saveFormData();
+                      },
                       child: SizedBox(
                         width: 107,
                         height: 39,
@@ -314,6 +314,11 @@ class _AddExpenseState extends State<AddExpense> {
         ),
       ),
     );
+  }
+
+  void _saveFormData() {
+    //fetch data from controllers
+    print("saving form data");
   }
 }
 

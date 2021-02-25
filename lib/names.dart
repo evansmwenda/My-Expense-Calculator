@@ -11,7 +11,7 @@ class _NamesState extends State<Names> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard')),
+      appBar: AppBar(title: Text('Baby Names')),
       body: _buildBody(context),
     );
   }

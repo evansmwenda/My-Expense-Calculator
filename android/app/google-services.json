@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "742852298198",
+    "project_id": "expnsr-34d49",
+    "storage_bucket": "expnsr-34d49.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742852298198:android:766bbb1d1552ccbdee1077",
+        "android_client_info": {
+          "package_name": "com.quest.expnsr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "742852298198-u74ech9f80lqb35257nb5qgf1dg2g7mk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3wzc4CzUdUzVlJ44W9U-leAHQOBb6p7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "742852298198-u74ech9f80lqb35257nb5qgf1dg2g7mk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "742852298198-tcn2pv5gscmmrnrf4piq6h43kp71tn19.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.quest.expnsr"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

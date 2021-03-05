@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:toast/toast.dart';
 
 class AddExpense extends StatefulWidget {
   static const routeName = '/add-expense';
@@ -15,8 +16,11 @@ class _AddExpenseState extends State<AddExpense> {
 
   int _value = 1;
   String _chosenValueAir;
+  TextEditingController _dateController;
 
   final myController = TextEditingController();
+  final _amountController = TextEditingController();
+  final _detailsController = TextEditingController();
   final name = "Name";
   // DateTime selectedDate =  DateFormat("dd-MM-yyyy").format(DateTime.now());
 
@@ -34,7 +38,7 @@ class _AddExpenseState extends State<AddExpense> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _datecontroller = new TextEditingController(text: '${myFormat.format(selectedDate)}');
+    _dateController = new TextEditingController(text: '${myFormat.format(selectedDate)}');
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Expense"),
@@ -114,51 +118,7 @@ class _AddExpenseState extends State<AddExpense> {
                   child: Stack(
                     children: <Widget>[
                       TextFormField(
-                        cursorColor: Colors.blue,
-                        decoration: InputDecoration(
-                          labelText: "Expense Name",
-                          contentPadding: EdgeInsets.symmetric(
-                            // vertical: 5.0,
-                            horizontal: 5.0,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter expense name';
-                          }
-                        },
-                      ),
-                      Positioned(
-                        bottom: 1,
-                        child: Container(
-                          height: 1,
-                          width: MediaQuery.of(context).size.width - 20,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.blueAccent,
-                                Colors.blue
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 40.0),
-                Container(
-                  height: 50,
-                  // margin: EdgeInsets.all(
-                  //   10.0,
-                  // ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.grey[200],
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      TextFormField(
+                        controller: _amountController,
                         cursorColor: Colors.blue,
                         decoration: InputDecoration(
                           labelText: "Expense Amount",
@@ -208,7 +168,7 @@ class _AddExpenseState extends State<AddExpense> {
                         IgnorePointer(
                           child: TextFormField(
                             cursorColor: Colors.blue,
-                            controller: _datecontroller,
+                            controller: _dateController,
                             decoration: InputDecoration(
                               labelText: "Expense Date",
                               contentPadding: EdgeInsets.symmetric(
@@ -247,6 +207,7 @@ class _AddExpenseState extends State<AddExpense> {
                   child: Stack(
                     children: <Widget>[
                       TextFormField(
+                        controller: _detailsController,
                         maxLines: 5,
                         cursorColor: Colors.blue,
                         decoration: InputDecoration(
@@ -318,7 +279,58 @@ class _AddExpenseState extends State<AddExpense> {
 
   void _saveFormData() {
     //fetch data from controllers
-    print("saving form data");
+    if(_chosenValueAir == null || _chosenValueAir.isEmpty ||  _amountController.text.isEmpty){
+      //display error message
+      print("we have an empty field");
+      Toast.show("Error, please fill all fields before submitting", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+
+    }else{
+      //upload to firebase
+      print(_chosenValueAir);
+      print(_amountController.text);
+      print(_dateController.text);
+      print(_detailsController.text);
+      FirebaseFirestore.instance
+          .collection('expense')
+          .add({
+        'amount': _amountController.text,
+        'category': _chosenValueAir,
+        'date': _dateController.text,
+        'description': _detailsController.text,});
+
+      Toast.show("Expense added successfully!", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+      clearInputFields();
+      _formKey.currentState?.reset();
+    }
+    // if (_formKey.currentState.validate()) {
+    //   // //checks if name and amount entered,date is by default->check category
+    //   if(_chosenValueAir == null || _chosenValueAir.isEmpty){
+    //     print("saving form data");
+    //     print("saving form data");
+    //   }
+    // }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    _dateController.clear();
+    _amountController.clear();
+    _detailsController.clear();
+    super.dispose();
+  }
+
+  void clearInputFields() {
+    _amountController.clear();
+    _dateController.clear();
+    _detailsController.clear();
+    setState(() {
+      print("redrawing the activity");
+      _amountController.clear();
+      _dateController.clear();
+      _detailsController.clear();
+    });
+
   }
 }
 
@@ -338,3 +350,5 @@ class Expense {
 
   void save() => print("Record<$name:$votes>");
 }
+
+
